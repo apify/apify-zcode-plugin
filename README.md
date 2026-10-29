@@ -4,6 +4,8 @@ Official Apify plugin for ZCode — adds the Apify MCP server, one `apify` routi
 
 > **Apify** is a platform of thousands of serverless cloud programs called **Actors** for web scraping, browser automation, and data extraction. Learn more at [apify.com](https://apify.com).
 
+Plugin documentation shipped with the plugin: [English](apify/README.md) · [中文](apify/README_CN.md)
+
 ## What you get
 
 | Component | Name | Purpose |
@@ -65,7 +67,7 @@ The plugin uses **three setup paths** depending on what you're doing. The `apify
 
 ### Path 1 — Using existing Actors through MCP
 
-Uses **OAuth**. Authorize the Apify MCP server once as described in [Authenticate to Apify](#authenticate-to-apify). Tools that need auth (for example `run-actor` or `get-dataset-items`) require it; read-only tools such as `search-actors`, `fetch-actor-details`, `search-apify-docs`, and `fetch-apify-docs` work without auth.
+Uses **OAuth**. The first time the agent calls a tool that needs auth (for example `run-actor` or `get-dataset-items`), ZCode opens `console.apify.com` in your browser and asks you to sign in. Every MCP tool requires sign-in, including Store search and docs lookup.
 
 ### Path 2 — CLI workflows for Actor development, actorization, or scraper runs
 
@@ -122,8 +124,8 @@ generate output schemas for the Actor in this folder
 
 The `apify` MCP server is configured in `.mcp.json` and the agent uses it for Route 1 tasks. It exposes:
 
-- `search-actors` — search the Apify Store by keyword (no auth)
-- `fetch-actor-details` — Actor specs, input schema, pricing (no auth)
+- `search-actors` — search the Apify Store by keyword (OAuth)
+- `fetch-actor-details` — Actor specs, input schema, pricing (OAuth)
 - `run-actor` — execute an Actor and return results (OAuth)
 - `get-dataset-items` — retrieve dataset rows from a previous run (OAuth)
 - `search-apify-docs` / `fetch-apify-docs` — Apify documentation lookup
@@ -146,7 +148,7 @@ The executable requirements come from the skills themselves: Route 1 uses the MC
 
 **`APIFY_TOKEN` not found.** Export `APIFY_TOKEN` in your shell before starting ZCode when using headless CLI auth or the `apify-sdk-integration` skill.
 
-**The wrong skill keeps getting picked.** The five bundled skills are marked `user-invocable: false` and are meant to be routed through the `apify` agent. If routing looks wrong, describe the goal more explicitly: use existing Actors, build an Actor, actorize a project, generate output schemas, or integrate Apify into an app.
+**The wrong skill keeps getting picked.** The five bundled skills are meant to be routed through the `apify` agent. If routing looks wrong, describe the goal more explicitly: use existing Actors, build an Actor, actorize a project, generate output schemas, or integrate Apify into an app.
 
 **`apify` vs `apify-client`** — these are two different npm packages. The `apify` package is the SDK for **building** Actors (used inside an Actor's code, on the Apify platform). The `apify-client` package is the API client for **calling** Actors from your own application. The agent picks the right one for you; if you're installing manually, double-check.
 
