@@ -24,13 +24,28 @@ Plugin documentation shipped with the plugin: [English](apify/README.md) · [中
 
 ### From GitHub
 
-1. Open **Settings → Plugins**.
-2. Click **Create → Add marketplace** in the top-right corner.
-3. Enter `apify/apify-zcode-plugin` (or the full URL `https://github.com/apify/apify-zcode-plugin`).
-4. ZCode validates the marketplace and adds it to the **Personal** segment.
-5. Find the **apify** plugin under the marketplace name and click **Install**.
+1. In ZCode, open **Settings → Plugins**.
+2. Select **Create → Add marketplace**.
+3. Enter the Apify plugin repository as the source:
 
-Newly installed plugins are enabled by default and their components are available immediately.
+   ```text
+   apify/apify-zcode-plugin
+   ```
+
+4. ZCode validates and adds the marketplace. The **Apify** plugin appears under the **Personal** segment.
+5. Select **Install** on the Apify plugin card. The plugin is enabled by default and its components are available immediately.
+
+### Authenticate to Apify
+
+The plugin bundles the Apify MCP server. Read-only tools like searching Apify Store and fetching Actor details work without signing in, but you need to authenticate to run Actors and access your account data.
+
+1. In ZCode, open **Settings → MCP Servers**.
+2. Scroll to the **Plugin MCP servers** group. The Apify MCP server row shows **Authorization required**.
+3. Select **Open authorization**. ZCode opens the Apify OAuth page in your system browser.
+4. Review the permissions and select **Allow access**.
+5. Back in ZCode, the Apify MCP server reconnects and loads its tools automatically.
+
+The connection stays authenticated for future sessions. You can revoke access at any time in [Apify Console → Settings → Integrations](https://console.apify.com/settings/integrations).
 
 ### Local testing
 
